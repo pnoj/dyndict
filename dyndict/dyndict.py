@@ -1,5 +1,6 @@
 import copy
 
+
 class dyndict(dict):
     def __add__(self, b):
         return self._add_primitive(self, b)
@@ -23,13 +24,13 @@ class dyndict(dict):
                 return c
             elif isinstance(a, set) and isinstance(b, set):
                 c = copy.deepcopy(a)
-                c.update(a)
+                c.update(b)
                 return c
             elif isinstance(a, None) and isinstance(b, None):
                 return None
             else:
                 raise NotImplementedError
-    
+
     def _overwrite_primitive(self, a, b):
         if type(a) != type(b):
             return copy.deepcopy(b)

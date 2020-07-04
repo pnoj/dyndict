@@ -1,1 +1,2 @@
-from dyndict.main import dyndict
+# flake8: noqa: F401
+from .dyndict import dyndict
