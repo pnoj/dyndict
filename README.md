@@ -1,5 +1,8 @@
 ## DynDict
 
+![Python test](https://github.com/hillcrestpaul0719/dyndict/workflows/Python%20test/badge.svg)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/dyndict)
+
 Dynamic Dictionary class for Python adds support for add operation for dictionary classes.
 
 #### Demo
