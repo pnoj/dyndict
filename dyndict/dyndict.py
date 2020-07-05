@@ -2,6 +2,10 @@ import copy
 
 
 class dyndict(dict):
+    def __init__(self, dictionary:dict=dict(), add_num:bool=True):
+        self.update(dictionary)
+        self.add_num = add_num
+
     def __add__(self, b):
         return self._add_primitive(self, b)
 
@@ -10,7 +14,9 @@ class dyndict(dict):
 
     def _add_primitive(self, a, b):
         try:
-            if isinstance(a, dict):
+            if isinstance(a, dict) or isinstance(b, dict):
+                raise TypeError
+            if (not self.add_num) and (isinstance(a, int) or isinstance(a, float)):
                 raise TypeError
             return a + b
         except TypeError:
@@ -26,8 +32,10 @@ class dyndict(dict):
                 c = copy.deepcopy(a)
                 c.update(b)
                 return c
-            elif isinstance(a, None) and isinstance(b, None):
+            elif isinstance(a, type(None)) and isinstance(b, type(None)):
                 return None
+            elif (isinstance(a, int) or isinstance(a, float)) and (isinstance(b, int) or isinstance(b, float)):
+                return b
             else:
                 raise NotImplementedError
 

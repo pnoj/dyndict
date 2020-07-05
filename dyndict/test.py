@@ -55,6 +55,17 @@ class TestDynDict(unittest.TestCase):
         self.dynd += {'a': 'def'}
         self.assertEqual(self.dynd, {'a': 'abcdef'})
 
+    def test_not_adding_int(self):
+        self.dynd = dyndict(add_num=False)
+        self.dynd += {'a': -1}
+        self.assertEqual(self.dynd, {'a': -1})
+        self.dynd += {'a': 1}
+        self.assertEqual(self.dynd, {'a': 1})
+
+    def test_init_with_dict(self):
+        self.dynd = dyndict({'a': 1})
+        self.assertEqual(self.dynd, {'a': 1})
+
 
 if __name__ == '__main__':
     unittest.main()
