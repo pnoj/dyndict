@@ -43,28 +43,28 @@ class TestDynDict(unittest.TestCase):
         self.dynd += {'a': {4, 5, 6}}
         self.assertEqual(self.dynd, {'a': {1, 2, 3, 4, 5, 6}})
 
-    def test_adding_int(self):
-        self.dynd += {'a': 0}
-        self.assertEqual(self.dynd, {'a': 0})
-        self.dynd += {'a': 1}
-        self.assertEqual(self.dynd, {'a': 1})
-
-    def test_adding_string(self):
-        self.dynd += {'a': 'abc'}
-        self.assertEqual(self.dynd, {'a': 'abc'})
-        self.dynd += {'a': 'def'}
-        self.assertEqual(self.dynd, {'a': 'abcdef'})
-
-    def test_not_adding_int(self):
-        self.dynd = dyndict(add_num=False)
+    def test_overwriting_int(self):
         self.dynd += {'a': -1}
         self.assertEqual(self.dynd, {'a': -1})
         self.dynd += {'a': 1}
         self.assertEqual(self.dynd, {'a': 1})
 
+    def test_overwriting_string(self):
+        self.dynd += {'a': 'abc'}
+        self.assertEqual(self.dynd, {'a': 'abc'})
+        self.dynd += {'a': 'def'}
+        self.assertEqual(self.dynd, {'a': 'def'})
+
     def test_init_with_dict(self):
         self.dynd = dyndict({'a': 1})
         self.assertEqual(self.dynd, {'a': 1})
+
+    def test_refer_by(self):
+        self.dynd = dyndict(refer_by='name')
+        self.dynd += {'list': [{'name': 'a', 'x': 0}, {'name': 'b', 'x': 1}]}
+        self.assertEqual(self.dynd, {'list': [{'name': 'a', 'x': 0}, {'name': 'b', 'x': 1}]})
+        self.dynd += {'list': [{'name': 'a', 'y': 2}, {'name': 'b', 'y': 3}]}
+        self.assertEqual(self.dynd, {'list': [{'name': 'a', 'x': 0, 'y': 2}, {'name': 'b', 'x': 1, 'y': 3}]})
 
 
 if __name__ == '__main__':

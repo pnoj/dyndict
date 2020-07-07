@@ -2,9 +2,9 @@ import copy
 
 
 class dyndict(dict):
-    def __init__(self, dictionary:dict=dict(), add_num:bool=True):
+    def __init__(self, dictionary:dict=dict(), refer_by=None):
         self.update(dictionary)
-        self.add_num = add_num
+        self.refer_by = refer_by
 
     def __add__(self, b):
         return self._add_primitive(self, b)
@@ -16,8 +16,12 @@ class dyndict(dict):
         try:
             if isinstance(a, dict) or isinstance(b, dict):
                 raise TypeError
-            if (not self.add_num) and (isinstance(a, int) or isinstance(a, float)):
+            if isinstance(a, list) or isinstance(b, list):
                 raise TypeError
+            if isinstance(a, str) and isinstance(b, str):
+                return b
+            if (isinstance(a, int) or isinstance(a, float)) and (isinstance(b, int) or isinstance(b, float)):
+                return b
             return a + b
         except TypeError:
             if isinstance(a, dict) and isinstance(b, dict):
@@ -32,11 +36,34 @@ class dyndict(dict):
                 c = copy.deepcopy(a)
                 c.update(b)
                 return c
+            elif isinstance(a, list) and isinstance(b, list):
+                c = copy.deepcopy(a)
+                d = copy.deepcopy(b)
+                e = c + d
+                name_dict = dict()
+                for i in range(0, len(e)):
+                    if isinstance(e[i], dict) and 'name' in e[i]:
+                        if e[i]['name'] in name_dict:
+                            e[name_dict[e[i]['name']]] = self._add_primitive(e[name_dict[e[i]['name']]], e[i])
+                        else:
+                            name_dict[e[i]['name']] = i
+                name_set = set()
+                n = 0
+                while n < len(e):
+                    if isinstance(e[n], dict) and 'name' in e[n]:
+                        if e[n]['name'] in name_set:
+                            e.pop(n)
+                        else:
+                            name_set.add(e[n]['name'])
+                            n += 1
+                    else:
+                        n += 1
+                return e
             elif isinstance(a, type(None)) and isinstance(b, type(None)):
                 return None
-            elif (isinstance(a, int) or isinstance(a, float)) and (isinstance(b, int) or isinstance(b, float)):
-                return b
             else:
+                print(type(a))
+                print(type(b))
                 raise NotImplementedError
 
     def _overwrite_primitive(self, a, b):
