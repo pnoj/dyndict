@@ -7,6 +7,33 @@ Dynamic Dictionary class for Python adds support for add operation for dictionar
 
 #### Demo
 
+Behold, the power of DynDict:
+
+```python
+Python 3.8.3 (default, May 17 2020, 18:15:42) 
+[GCC 10.1.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from dyndict import dyndict
+>>> dyn = dyndict(refer_by='name')
+>>> dyn
+{}
+>>> dyn += {'a': []}
+>>> dyn
+{'a': []}
+>>> dyn += {'a': [{'name': 'a', 'value': 1}]}
+>>> dyn
+{'a': [{'name': 'a', 'value': 1}]}
+>>> dyn += {'a': [{'name': 'b', 'value': 2}]}
+>>> dyn
+{'a': [{'name': 'a', 'value': 1}, {'name': 'b', 'value': 2}]}
+>>> dyn += {'a': [{'name': 'a', 'key': 'one'}]}
+>>> dyn
+{'a': [{'name': 'a', 'value': 1, 'key': 'one'}, {'name': 'b', 'value': 2}]}
+>>> dyn += {'a': [{'name': 'b', 'key': 'two'}]}
+>>> dyn
+{'a': [{'name': 'a', 'value': 1, 'key': 'one'}, {'name': 'b', 'value': 2, 'key': 'two'}]}
+```
+
 ```python
 Python 3.8.3 (default, May 17 2020, 18:15:42) 
 [GCC 10.1.0] on linux
