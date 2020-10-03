@@ -107,7 +107,7 @@ class dyndict(dict):
                 if key in a:
                     a[key] = self._overwrite_primitive(a[key], b[key])
                 else:
-                    a[i] = copy.deepcopy(b[key])
+                    a[key] = copy.deepcopy(b[key])
             return a
         else:
             return copy.deepcopy(b)
