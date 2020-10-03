@@ -86,9 +86,13 @@ class TestDynDict(unittest.TestCase):
         """
         self.dynd = dyndict(refer_by='name')
         self.dynd += {'list': [{'name': 'a', 'x': 0}, {'name': 'b', 'x': 1}]}
-        self.assertEqual(self.dynd, {'list': [{'name': 'a', 'x': 0}, {'name': 'b', 'x': 1}]})
+        self.assertEqual(
+            self.dynd, {'list': [{'name': 'a', 'x': 0}, {'name': 'b', 'x': 1}]}
+        )
         self.dynd += {'list': [{'name': 'a', 'y': 2}, {'name': 'b', 'y': 3}]}
-        self.assertEqual(self.dynd, {'list': [{'name': 'a', 'x': 0, 'y': 2}, {'name': 'b', 'x': 1, 'y': 3}]})
+        self.assertEqual(
+            self.dynd, {'list': [{'name': 'a', 'x': 0, 'y': 2}, {'name': 'b', 'x': 1, 'y': 3}]}
+        )
 
 
 if __name__ == '__main__':

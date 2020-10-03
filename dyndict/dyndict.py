@@ -1,7 +1,8 @@
 import copy
 
+
 class dyndict(dict):
-    def __init__(self, dictionary: dict=dict(), refer_by=None):
+    def __init__(self, dictionary: dict = dict(), refer_by=None):
         """
         Creates a new dyndict from a dict instance.
         """
